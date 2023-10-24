@@ -3,7 +3,7 @@ import { BsFillMoonStarsFill } from "react-icons/bs";   // 추천음악 아이�
 import { FiGithub, FiMusic } from "react-icons/fi";   // 오늘의 음악 아이콘 Github아이콘
 import { SiYoutubemusic } from "react-icons/si";    // Youtube Music아이콘
 
-export const menuText = [
+export const menuText = [ 
     {
         title: "인기 아티스트",
         icon: <AiFillStar />,
