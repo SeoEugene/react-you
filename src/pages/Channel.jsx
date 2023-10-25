@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { fetchFromAPI } from '../utils/api';
 import VideoSearch from '../components/video/VideoSearch';
 
@@ -14,9 +14,9 @@ const Channel = () => {
                 const data = await fetchFromAPI(`channels?part=snippet&id=${channelId}`);
                 setChannelDetail(data.items[0]);
                 
-                const videosData = await fetchFromAPI(`channels?channelId=${channelId}&part=snippet&order=date`);
+                const videosData = await fetchFromAPI(`search?channelId=${channelId}&part=snippet&order=date`);
+                console.log(videosData);
                 setChannelVideo(videosData.items);
-                console.log(videosData.items);
 
             } catch(error){
                 console.log("Error fetching data" , error);
@@ -45,7 +45,7 @@ const Channel = () => {
                 </div>
             </div>
             <div className="channel__video video__inner">
-                <VideoSearch Videos={channelVideo}/>
+                <VideoSearch videos={channelVideo}/>
             </div>
             <div className="channel__more"></div>
         </div>
