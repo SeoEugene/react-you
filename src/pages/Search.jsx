@@ -15,6 +15,7 @@ const Search = () => {
             })
     }, [searchId]);
 
+
     return (
         <section id="searchPage">
             <div className="search__header">
