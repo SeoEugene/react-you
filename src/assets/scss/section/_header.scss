@@ -101,18 +101,18 @@
         flex-wrap: wrap;
 
         li {
-            border: 1px solid rgba(204, 153, 255, 0.5);
-            margin-top: 3px;
+            // border: 1px solid rgba(204, 153, 255, 0.5);
+            margin: 3px 3px 0 0;
             border-radius: 30px;
-            text-align: center;
-            line-height: 1.9;
             width: 100px;
             height: 30px;
             color: #333;
             background-color: #fff;
-
+            display: flex;
+            justify-content: center;
+            align-items: center;
             &.active {
-                background-color: rgba(204, 153, 255, 0.5);
+                background-color: rgba(204, 153, 255, 0.3);
                 border-radius: 40px;
             }
 

@@ -2,17 +2,38 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { fetchFromAPI } from '../utils/api';
 import ReactPlayer from 'react-player';
+import { AiOutlineHeart } from "react-icons/ai";
+import { BsPlay } from "react-icons/bs";
+import { BiCommentDetail } from "react-icons/bi";
 
 const Video = () => {
     const { videoId } = useParams();
     const [videoDetail, setVideoDetail] = useState(null);
+    const [videoComment, setVideoComment] = useState([]);
+    // const [comments, setComments] = useState([]);
 
     useEffect(() => {
         fetchFromAPI(`videos?part=snippet, statistics&id=${videoId}`)
             .then((data) => 
             setVideoDetail(data.items[0]));
             console.log(setVideoDetail);
+
+        // fetchFromAPI(`commentThreads?part=snippet&videoId=${videoId}`)
+        // .then((data) => {
+        //     setComments(data.items);
+        //     console.log(data)
+        //     })
+
+
+
+        fetchFromAPI(`commentThreads?part=snippet&videoId=${videoId}`)
+        .then((data) => 
+            setVideoComment(data.items));
+            console.log(setVideoComment);
+        
     }, [videoId]);
+
+
 
     return (
         <section id='videoViewPage'>
@@ -37,9 +58,9 @@ const Video = () => {
                                     <Link to={`/channel/${videoDetail.snippet.channelId}`} className='author'>{videoDetail.snippet.channelTitle}</Link>
                                 </div>
                                 <div className='count'>
-                                    <span className='view'>재생 {videoDetail.statistics.viewCount}</span>
-                                    <span className='like'>좋아요 {videoDetail.statistics.likeCount}</span>
-                                    <span className='comment'>댓글 {videoDetail.statistics.commentCount}</span>
+                                    <BsPlay /><span className='view'>재생 {videoDetail.statistics.viewCount}</span>
+                                    <AiOutlineHeart /><span className='like'>좋아요 {videoDetail.statistics.likeCount}</span>
+                                    <BiCommentDetail /><span className='comment'>댓글 {videoDetail.statistics.commentCount}</span>
                                 </div>
                             
                             </div>
@@ -47,7 +68,30 @@ const Video = () => {
                     </div>
 
                     <div className='playlist'>
+                        {/* {comments.map((comment, key) => (
+                                <div className="comment__all" key={key}>
+                                    <div className="comment__nickname" key={key}>
+                                        {comment.snippet.topLevelComment.snippet.authorDisplayName}
+                                    </div>
+                                    <div className="comment__cont" key={key}>
+                                        {comment.snippet.topLevelComment.snippet.textOriginal}
+                                    </div>
+                                </div>
+                            ))} */}
 
+                        <div>
+                            {videoComment.map((comment) => (
+                                <>
+                                    <div class="commentName">
+                                        {comment.snippet.topLevelComment.snippet.authorDisplayName}
+                                    </div>
+                                    <div class="commentbox">
+                                        {comment.snippet.topLevelComment.snippet.textOriginal}
+                                    </div>
+                                </>
+                            )
+                            )}
+                        </div>
                     </div>
 
                 </div>
